@@ -1,6 +1,6 @@
-== ROS Gazebo Simulation Docker Image
+== ROS Gazebo Dragonfly Simulation Docker Image
 
-This repository contains a starting point to building and running a simple Gazebo Docker image.
+This repository contains the Dragonfly simulation Gazebo Docker image.
 
 This repository is based on the work of the following:
 

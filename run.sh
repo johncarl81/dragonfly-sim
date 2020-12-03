@@ -19,5 +19,5 @@ docker run -it \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
     --runtime=nvidia \
-    example-sim:latest \
-    roslaunch example_sim run_sim.launch
+    dragonfly-sim:latest \
+    roslaunch dragonfly_sim run_sim.launch
