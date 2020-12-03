@@ -1,0 +1,59 @@
+== ROS Gazebo Simulation Docker Image
+
+This repository contains a starting point to building and running a simple Gazebo Docker image.
+
+This repository is based on the work of the following:
+
+. Tutorial standing up Bubble-Bot simulation (blog): http://moore-mike.com/docker-ros.html#docker-ros
+. Repository from Davide Faconti with some guidance on using nvidia integration: https://github.com/facontidavide/ros-docker-gazebo
+. Tutorial by Brett Israelsen (blog): https://bisraelsen.github.io/2017/docker/
+
+=== Step 1: Install Docker
+Install docker https://docs.docker.com/engine/installation/linux/ubuntu/
+
+.TLDR:
+----
+sudo apt install docker.io
+----
+
+To run docker without super user:
+
+----
+sudo groupadd docker
+sudo gpasswd -a ${USER} docker
+sudo service docker restart
+----
+
+=== Step 2: Setup NVIDIA acceleration
+
+Install nvidia-docker (to get HW acceleration) https://github.com/NVIDIA/nvidia-docker/wiki
+
+.TLDR:
+----
+# Add the package repositories
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+sudo apt install curl
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+
+# install the nvidia docker support packages
+sudo apt update
+sudo apt install nvidia-container-toolkit
+
+# restart the docker daemon with nvidia support
+sudo systemctl restart docker
+
+----
+
+=== Step 3: Create the container
+
+This repository contains a basic Dockerfile under `docker/Dockerfile` with the bones necessary to start up a Gazebo simulation.
+To build, simply run the `./build.sh` script in the root.  This may require you to log into docker.io.
+
+=== Step 4: Run the container
+
+Finally, if everything finished without error, simply run the `./run.sh` script to standup the Gazebo simuation docker container.
+You should see this GUI appear:
+
+image::images/gazebo.png[]
