@@ -14,6 +14,13 @@ RUN apt-get -qq update && \
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
+# Install MavProxy
+RUN apt-get install -q -y python-dev python-opencv python-wxgtk3.0 python-pip python-matplotlib python-pygame python-lxml python-yaml
+
+RUN pip install MAVProxy
+
+RUN apt-get install -q -y ros-melodic-mavros ros-melodic-mavros-extras
+
 # Install simulation
 COPY ./gazebo $WORKSPACE
 
@@ -21,6 +28,13 @@ RUN source /opt/ros/melodic/setup.bash && \
     cd $WORKSPACE && \
     catkin_make && \
     catkin_make install
+
+# Setup Geographic dataset
+RUN mkdir $WORKSPACE/data && \
+	cd $WORKSPACE/data && \
+	wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh && \
+    chmod 700 ./install_geographiclib_datasets.sh && \
+    ./install_geographiclib_datasets.sh
 
 EXPOSE 11345
 
