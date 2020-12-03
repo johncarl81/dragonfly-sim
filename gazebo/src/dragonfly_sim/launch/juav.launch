@@ -1,0 +1,3 @@
+<launch>
+	<node name="juav_spawner" pkg="gazebo_ros" type="spawn_model" args="-sdf -file /workspace/src/dragonfly_sim/juav/JUAV1/model.sdf -model JUAV1" respawn="false" output="screen" />
+</launch>
