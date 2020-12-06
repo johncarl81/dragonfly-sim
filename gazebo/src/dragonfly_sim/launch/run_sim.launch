@@ -9,6 +9,4 @@
 		<arg name="gui" value="$(arg gui)"/>
 	</include>
 
-	<include file="$(find dragonfly_sim)/launch/juav.launch"/>
-
 </launch>

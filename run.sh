@@ -19,6 +19,6 @@ docker run -it \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
     --runtime=nvidia \
-    --network host \
-    dragonfly-sim:latest \
-    roslaunch dragonfly_sim run_sim.launch
+    -p 11311:11311 \
+    --network ros-net \
+    dragonfly-sim:latest --drones 9

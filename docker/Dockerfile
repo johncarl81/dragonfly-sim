@@ -54,10 +54,10 @@ RUN source /opt/ros/melodic/setup.bash && \
     catkin_make && \
     catkin_make install
 
-EXPOSE 11345
+COPY ./templates $WORKSPACE/templates
 
 # Setup Entrypoint
 COPY ./docker/entrypoint.sh /
-ENTRYPOINT ["/entrypoint.sh"]
+COPY ./docker/entrypoint.py /
 
-CMD ["bash"]
+ENTRYPOINT ["/entrypoint.py"]
