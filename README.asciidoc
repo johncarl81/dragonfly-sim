@@ -2,6 +2,8 @@
 
 This repository contains the Dragonfly simulation Gazebo Docker image.
 
+image::images/swarm_takeoff.gif[]
+
 This repository is based on the work of the following:
 
 . Tutorial standing up Bubble-Bot simulation (blog): http://moore-mike.com/docker-ros.html#docker-ros
@@ -54,6 +56,6 @@ To build, simply run the `./build.sh` script in the root.  This may require you 
 === Step 4: Run the container
 
 Finally, if everything finished without error, simply run the `./run.sh` script to standup the Gazebo simuation docker container.
-You should see this GUI appear:
+You should see this GUI appear with the given number of drones.
 
 image::images/gazebo.png[]
