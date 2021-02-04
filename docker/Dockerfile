@@ -39,6 +39,11 @@ RUN cd $WORKSPACE && \
 RUN cd $WORKSPACE && \
     git clone --recurse-submodules -j8 https://github.com/SwiftGust/ardupilot_gazebo.git
 
+# Add hummingbird springs as default location (https://ardupilot.org/dev/docs/using-sitl-for-ardupilot-testing.html)
+RUN echo "HUMMINGBIRD=35.824822,-106.6577015,2036,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
+RUN echo "ARROYO_DEL_OSO=35.138824,-106.556401,1643,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
+RUN echo "BALLOON_FIESTA=35.195006,-106.596133,1528,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
+
 RUN cd $WORKSPACE/ardupilot && \
     ./waf configure && ./waf copter
 

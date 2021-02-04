@@ -27,7 +27,7 @@ def run_simulation(args):
     # Start drones
     for i in range(0, args.drones):
         parameters = {'target': (i + 1),
-                      'name': "JUAV{}".format(i + 1),
+                      'name': "dragonfly{}".format(i + 1),
                       'fdm_port_in': (9002 + (i * 10)),
                       'fdm_port_out': (9003 + (i * 10))
                       }
@@ -40,14 +40,15 @@ def run_simulation(args):
         column = spacing * (i % columnsize)
 
         processes.append(subprocess.Popen('/entrypoint.sh roslaunch dragonfly_sim juav.launch '
-                                          "name:=JUAV{} ".format(i + 1) +
+                                          "name:=dragonfly{} ".format(i + 1) +
                                           "instance:={} ".format(i) +
                                           "tgt_system:={} ".format(i + 1) +
                                           "spawn_offset_x:={} ".format(row) +
                                           "spawn_offset_y:={} ".format(column) +
                                           "fcu_url:=udp://127.0.0.1:{}@{} ".format(14551 + (i * 10), 14555 + (i * 10)) +
                                           "param_file:={} ".format(juav_param.name) +
-                                          "model_file:={} ".format(model_sdf.name),
+                                          "model_file:={} ".format(model_sdf.name) +
+                                          "location:={} ".format(args.location),
                                           shell=True))
 
     for p in processes:
@@ -73,6 +74,11 @@ def get_args():
         '--drones',
         type=int,
         default=1)
+    parser.add_argument(
+        '--location',
+        type=str,
+        default='HUMMINGBIRD'
+    )
     parser.add_argument(
         '--gui',
         type=str2bool,
