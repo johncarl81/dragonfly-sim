@@ -1,4 +1,4 @@
-FROM osrf/ros:melodic-desktop-full
+FROM osrf/ros:foxy-desktop
 
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
@@ -10,14 +10,12 @@ ENV WORKSPACE=/workspace
 
 RUN apt-get -qq update && \
     apt-get -qq upgrade && \
-    apt-get -qq install apt-utils build-essential vim python-catkin-tools
+    apt-get -qq install apt-utils build-essential vim
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Install Dependencies
-RUN apt-get -qq install python-dev python-opencv python-wxgtk3.0 \
-    python-pip python-matplotlib python-pygame python-lxml python-yaml \
-    ros-melodic-mavros ros-melodic-mavros-extras libgazebo9-dev
+RUN apt-get -qq install ros-foxy-mavros gazebo11 libgazebo11-dev ros-foxy-gazebo-ros-pkgs python3-pip python-is-python3
 
 # Install MavProxy
 RUN pip install MAVProxy
@@ -43,7 +41,7 @@ RUN cd $WORKSPACE && \
 RUN echo "HUMMINGBIRD=35.824822,-106.6577015,2036,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
 RUN echo "ARROYO_DEL_OSO=35.138824,-106.556401,1643,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
 RUN echo "BALLOON_FIESTA=35.195006,-106.596133,1528,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
-RUN echo "SALT_SPRINGS=38.498443,-112.8528725,230,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
+RUN echo "ROOSEVELT_SPRINGS=38.498443,-112.8528725,230,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
 
 RUN cd $WORKSPACE/ardupilot && \
     ./waf configure && ./waf copter
@@ -55,10 +53,9 @@ RUN mkdir $WORKSPACE/gazebo
 
 COPY ./gazebo $WORKSPACE/gazebo
 
-RUN source /opt/ros/melodic/setup.bash && \
+RUN source /opt/ros/foxy/setup.bash && \
     cd $WORKSPACE/gazebo && \
-    catkin_make && \
-    catkin_make install
+    colcon build
 
 COPY ./templates $WORKSPACE/templates
 
