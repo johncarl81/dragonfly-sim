@@ -3,7 +3,7 @@ import argparse, subprocess, time, tempfile, math
 from string import Template
 
 def template(templateFileName, values):
-    fp = tempfile.NamedTemporaryFile()
+    fp = tempfile.NamedTemporaryFile(mode = "w")
 
     template = Template(open(templateFileName).read())
     result = template.substitute(values)
@@ -16,7 +16,7 @@ def template(templateFileName, values):
 def run_simulation(args):
     processes = []
     # Start Gazebo
-    processes.append(subprocess.Popen("/entrypoint.sh roslaunch dragonfly_sim run_sim.launch gui:={}".format("{}".format(args.gui).lower()), shell=True))
+    processes.append(subprocess.Popen("/entrypoint.sh ros2 launch gazebo_ros gazebo.launch.py gui:={} world:=worlds/empty_sky.world".format("{}".format(args.gui).lower()), shell=True))
 
     time.sleep(3)
 
@@ -39,17 +39,9 @@ def run_simulation(args):
         row = spacing * int(i / columnsize)
         column = spacing * (i % columnsize)
 
-        processes.append(subprocess.Popen('/entrypoint.sh roslaunch dragonfly_sim juav.launch '
-                                          "name:=dragonfly{} ".format(i + 1) +
-                                          "instance:={} ".format(i) +
-                                          "tgt_system:={} ".format(i + 1) +
-                                          "spawn_offset_x:={} ".format(row) +
-                                          "spawn_offset_y:={} ".format(column) +
-                                          "fcu_url:=udp://127.0.0.1:{}@{} ".format(14551 + (i * 10), 14555 + (i * 10)) +
-                                          "param_file:={} ".format(juav_param.name) +
-                                          "model_file:={} ".format(model_sdf.name) +
-                                          "location:={} ".format(args.location),
-                                          shell=True))
+        processes.append(subprocess.Popen(f"/entrypoint.sh ros2 run gazebo_ros spawn_entity.py -file {model_sdf.name} -x {row} -y {column} -entity dragonfly{i + 1}", shell=True))
+        processes.append(subprocess.Popen(f"/entrypoint.sh ros2 run dragonfly_sim arducopter.sh {i} dragonfly{i+1}{i+1} {juav_param.name} {args.location}", shell=True))
+        processes.append(subprocess.Popen(f"/entrypoint.sh ros2 launch dragonfly_sim apm.launch.py name:=dragonfly{i+1} fcu_url:=udp://127.0.0.1:{14551 + (i * 10)}@{14555 + (i * 10)} tgt_system:={i + 1}", shell=True))
 
     for p in processes:
         p.wait()
