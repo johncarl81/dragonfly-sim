@@ -17,7 +17,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # Install Dependencies
 RUN apt-get -qq install python-dev python-opencv python-wxgtk3.0 \
     python-pip python-matplotlib python-pygame python-lxml python-yaml \
-    ros-melodic-mavros ros-melodic-mavros-extras libgazebo9-dev
+    ros-melodic-mavros ros-melodic-mavros-extras libgazebo9-dev rsync
 
 # Install MavProxy
 RUN pip install MAVProxy
@@ -44,6 +44,9 @@ RUN echo "HUMMINGBIRD=35.824822,-106.6577015,2036,0" >> $WORKSPACE/ardupilot/Too
 RUN echo "ARROYO_DEL_OSO=35.138824,-106.556401,1643,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
 RUN echo "BALLOON_FIESTA=35.195006,-106.596133,1528,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
 RUN echo "SALT_SPRINGS=38.498443,-112.8528725,230,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
+
+# Install pexpect for ardupilot build
+RUN pip install pexpect
 
 RUN cd $WORKSPACE/ardupilot && \
     ./waf configure && ./waf copter
