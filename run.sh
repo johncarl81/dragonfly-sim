@@ -12,6 +12,9 @@ then
     chmod a+r $XAUTH
 fi
 
+docker network inspect ros-net >/dev/null 2>&1 || \
+    docker network create ros-net --subnet=172.18.0.0/16
+
 docker run -it \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
@@ -22,4 +25,4 @@ docker run -it \
     --ip 172.18.0.2 \
     -p 11311:11311 \
     --network ros-net \
-    dragonfly-sim:latest --drones 4 --location BALLOON_FIESTA
+    dragonfly-sim:latest --drones 4 --location CUMBRE_VIEJA
