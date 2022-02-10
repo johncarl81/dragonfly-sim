@@ -1,9 +1,4 @@
-FROM osrf/ros:foxy-desktop
-
-ENV NVIDIA_VISIBLE_DEVICES \
-    ${NVIDIA_VISIBLE_DEVICES:-all}
-ENV NVIDIA_DRIVER_CAPABILITIES \
-    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+FROM ros:rolling-ros-base
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV WORKSPACE=/workspace
@@ -15,10 +10,10 @@ RUN apt-get -qq update && \
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Install Dependencies
-RUN apt-get -qq install ros-foxy-mavros gazebo11 libgazebo11-dev ros-foxy-gazebo-ros-pkgs python3-pip python-is-python3
+RUN apt-get -qq install ros-rolling-desktop python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-pygame python3-lxml python3-yaml ros-rolling-mavros rsync gazebo11 libgazebo11-dev ros-rolling-gazebo-ros-pkgs python-is-python3
 
 # Install MavProxy
-RUN pip install MAVProxy
+RUN pip install MAVProxy pexpect
 
 # Clear apt cache to save on space
 RUN rm -rf /var/lib/apt/lists/*
@@ -56,7 +51,7 @@ RUN mkdir $WORKSPACE/gazebo
 
 COPY ./gazebo $WORKSPACE/gazebo
 
-RUN source /opt/ros/foxy/setup.bash && \
+RUN source /opt/ros/rolling/setup.bash && \
     cd $WORKSPACE/gazebo && \
     colcon build
 
