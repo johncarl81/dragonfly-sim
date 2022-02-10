@@ -2,7 +2,7 @@
 set -e
 
 source /usr/share/gazebo-11/setup.sh
-source /opt/ros/foxy/setup.bash
+source /opt/ros/rolling/setup.bash
 source /workspace/gazebo/install/setup.bash
 
 export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:"/workspace/gazebo/src/dragonfly_sim/models"
