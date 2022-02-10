@@ -12,6 +12,9 @@ then
     chmod a+r $XAUTH
 fi
 
+docker network inspect ros-net >/dev/null 2>&1 || \
+    docker network create ros-net --subnet=172.18.0.0/16
+
 docker run -it \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \

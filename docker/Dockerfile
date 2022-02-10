@@ -38,6 +38,9 @@ RUN echo "ARROYO_DEL_OSO=35.138824,-106.556401,1643,0" >> $WORKSPACE/ardupilot/T
 RUN echo "BALLOON_FIESTA=35.195006,-106.596133,1528,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
 RUN echo "ROOSEVELT_SPRINGS=38.498443,-112.8528725,230,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
 
+# Install pexpect for ardupilot build
+RUN pip install pexpect
+
 RUN cd $WORKSPACE/ardupilot && \
     ./waf configure && ./waf copter
 
