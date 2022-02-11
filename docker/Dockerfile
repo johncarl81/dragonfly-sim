@@ -15,7 +15,7 @@ RUN apt-get -qq update && \
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Install Dependencies
-RUN apt-get -qq install python-dev python-opencv python-wxgtk3.0 \
+RUN apt-get -qq install ros-melodic-desktop-full python-dev python-opencv python-wxgtk3.0 \
     python-pip python-matplotlib python-pygame python-lxml python-yaml \
     ros-melodic-mavros ros-melodic-mavros-extras libgazebo9-dev rsync
 
