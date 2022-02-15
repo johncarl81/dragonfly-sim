@@ -41,7 +41,7 @@ def run_simulation(args):
 
         processes.append(subprocess.Popen(f"/entrypoint.sh ros2 run gazebo_ros spawn_entity.py -file {model_sdf.name} -x {row} -y {column} -entity dragonfly{i + 1}", shell=True))
         processes.append(subprocess.Popen(f"/entrypoint.sh ros2 run dragonfly_sim arducopter.sh {i} dragonfly{i+1}{i+1} {juav_param.name} {args.location}", shell=True))
-        processes.append(subprocess.Popen(f"/entrypoint.sh ros2 launch dragonfly_sim apm.launch.py name:=dragonfly{i+1} fcu_url:=udp://127.0.0.1:{14551 + (i * 10)}@{14555 + (i * 10)} tgt_system:={i + 1}", shell=True))
+        processes.append(subprocess.Popen(f"/entrypoint.sh ros2 launch dragonfly_sim apm.launch.py name:=dragonfly{i+1} fcu_url:=udp://0.0.0.0:{14551 + (i * 10)}@{14555 + (i * 10)} tgt_system:={i + 1}", shell=True))
 
     for p in processes:
         p.wait()
