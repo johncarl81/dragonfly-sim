@@ -1,4 +1,5 @@
 #!/bin/bash
+xhost local:docker
 XAUTH=/tmp/.docker.xauth
 if [ ! -f $XAUTH ]
 then
@@ -24,4 +25,4 @@ docker run -it \
     --ip 172.18.0.2 \
     -p 11311:11311 \
     --network ros-net \
-    dragonfly-sim:latest --drones 1 --location BALLOON_FIESTA
+    dragonfly-sim:latest --drones 4 --location BALLOON_FIESTA
