@@ -1,4 +1,4 @@
-FROM ros:rolling-ros-base
+FROM ros:galactic-ros-base
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV WORKSPACE=/workspace
@@ -10,7 +10,7 @@ RUN apt-get -qq update && \
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Install Dependencies
-RUN apt-get -qq install ros-rolling-desktop python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-pygame python3-lxml python3-yaml ros-rolling-mavros rsync gazebo11 libgazebo11-dev ros-rolling-gazebo-ros-pkgs python-is-python3
+RUN apt-get -qq install ros-galactic-desktop python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-pygame python3-lxml python3-yaml ros-galactic-mavros rsync gazebo11 libgazebo11-dev ros-galactic-gazebo-ros-pkgs python-is-python3
 
 # Install MavProxy
 RUN pip install MAVProxy pexpect
@@ -51,7 +51,7 @@ RUN mkdir $WORKSPACE/gazebo
 
 COPY ./gazebo $WORKSPACE/gazebo
 
-RUN source /opt/ros/rolling/setup.bash && \
+RUN source /opt/ros/galactic/setup.bash && \
     cd $WORKSPACE/gazebo && \
     colcon build
 
