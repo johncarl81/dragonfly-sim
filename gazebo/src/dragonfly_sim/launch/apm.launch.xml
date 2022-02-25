@@ -12,7 +12,7 @@
         <param name="fcu_protocol" value="v2.0"/>
 
         <!-- load blacklist, config -->
-        <param from="/opt/ros/rolling/share/mavros/launch/apm_pluginlists.yaml"/>
-        <param from="/opt/ros/rolling/share/mavros/launch/apm_config.yaml"/>
+        <param from="/opt/ros/galactic/share/mavros/launch/apm_pluginlists.yaml"/>
+        <param from="/opt/ros/galactic/share/mavros/launch/apm_config.yaml"/>
     </node>
 </launch>
