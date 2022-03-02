@@ -97,7 +97,7 @@ def generate_launch_description():
     apm_node = Node(
         package='mavros',
         executable='mavros_node',
-        namespace='mavros',
+        namespace='dragonfly1/mavros',
         respawn='true',
         output='screen',
         parameters=[parameters],
