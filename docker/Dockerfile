@@ -15,7 +15,7 @@ RUN apt-get -qq update && \
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Install Dependencies
-RUN apt-get -qq install ros-melodic-desktop-full python-dev python-opencv python-wxgtk3.0 \
+RUN apt-get -qq install python-dev python-opencv python-wxgtk3.0 \
     python-pip python-matplotlib python-pygame python-lxml python-yaml \
     ros-melodic-mavros ros-melodic-mavros-extras libgazebo9-dev rsync
 
@@ -34,10 +34,10 @@ RUN mkdir -p $WORKSPACE/data && \
 
 # Install simulation
 RUN cd $WORKSPACE && \
-    git clone --recurse-submodules -j8 https://github.com/ArduPilot/ardupilot.git
+    git clone --recurse-submodules -j8 --depth 1 https://github.com/ArduPilot/ardupilot.git
 
 RUN cd $WORKSPACE && \
-    git clone --recurse-submodules -j8 https://github.com/SwiftGust/ardupilot_gazebo.git
+    git clone --recurse-submodules -j8 --depth 1 https://github.com/SwiftGust/ardupilot_gazebo.git
 
 # Add hummingbird springs as default location (https://ardupilot.org/dev/docs/using-sitl-for-ardupilot-testing.html)
 RUN echo "HUMMINGBIRD=35.824822,-106.6577015,2036,0" >> $WORKSPACE/ardupilot/Tools/autotest/locations.txt
