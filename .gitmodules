@@ -1,0 +1,2 @@
+[submodule "gazebo/ardupilot_gazebo"]
+	url = git@github.com:SwiftGust/ardupilot_gazebo.git

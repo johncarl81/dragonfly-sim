@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-source /opt/ros/melodic/setup.bash
+source /usr/share/gazebo-11/setup.sh
+source /opt/ros/galactic/setup.bash
 source /workspace/gazebo/install/setup.bash
 
 export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:"/workspace/gazebo/src/dragonfly_sim/models"

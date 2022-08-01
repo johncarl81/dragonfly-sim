@@ -1,4 +1,5 @@
 #!/bin/bash
+xhost local:docker
 XAUTH=/tmp/.docker.xauth
 if [ ! -f $XAUTH ]
 then
@@ -21,7 +22,6 @@ docker run -it \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
-    --runtime=nvidia \
     --ip 172.18.0.2 \
     -p 11311:11311 \
     --network ros-net \
