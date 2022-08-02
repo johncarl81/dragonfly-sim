@@ -1,5 +1,9 @@
-#! /usr/bin/env python
-import argparse, subprocess, time, tempfile, math
+#! /usr/bin/env python3
+import argparse
+import subprocess
+import tempfile
+import time
+import math
 from string import Template
 
 def template(templateFileName, values):
@@ -60,7 +64,7 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 def get_args():
-    parser = argparse.ArgumentParser(description='ARGoS Fault Tolerant Drone Simulator')
+    parser = argparse.ArgumentParser(description='Dragonfly gazebo simulation')
 
     parser.add_argument(
         '--drones',
