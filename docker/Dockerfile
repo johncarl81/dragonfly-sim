@@ -1,4 +1,4 @@
-FROM ros:galactic-ros-base
+FROM ros:humble-ros-base
 
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
@@ -15,7 +15,7 @@ RUN apt-get -qq update && \
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Install Dependencies
-RUN apt-get -qq install ros-galactic-desktop python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-pygame python3-lxml python3-yaml ros-galactic-mavros rsync gazebo11 libgazebo11-dev ros-galactic-gazebo-ros-pkgs python-is-python3
+RUN apt-get -qq install ros-humble-desktop python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-pygame python3-lxml python3-yaml ros-humble-mavros rsync gazebo libgazebo-dev ros-humble-gazebo-ros-pkgs python-is-python3
 
 # Install MavProxy
 RUN pip install MAVProxy pexpect
@@ -56,7 +56,7 @@ RUN mkdir $WORKSPACE/gazebo
 
 COPY ./gazebo $WORKSPACE/gazebo
 
-RUN source /opt/ros/galactic/setup.bash && \
+RUN source /opt/ros/humble/setup.bash && \
     cd $WORKSPACE/gazebo && \
     colcon build
 
