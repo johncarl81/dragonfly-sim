@@ -20,6 +20,9 @@ RUN apt-get -qq install ros-humble-desktop python3-dev python3-opencv python3-wx
 # Install MavProxy
 RUN pip install MAVProxy pexpect
 
+# Purge ModemManager if it snuck in with the above packages
+RUN apt-get -qq purge modemmanager
+
 # Clear apt cache to save on space
 RUN rm -rf /var/lib/apt/lists/*
 
