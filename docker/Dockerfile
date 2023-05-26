@@ -35,7 +35,7 @@ RUN mkdir -p $WORKSPACE/data && \
 
 # Install simulation
 RUN cd $WORKSPACE && \
-    git clone --recurse-submodules -j8 --depth 1 https://github.com/ArduPilot/ardupilot.git
+    git clone --recurse-submodules -j8 --depth 1 --branch Copter-4.2.3 https://github.com/ArduPilot/ardupilot.git
 
 RUN cd $WORKSPACE && \
     git clone --recurse-submodules -j8 --depth 1 https://github.com/SwiftGust/ardupilot_gazebo.git
